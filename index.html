@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cobblemon Poser Generator</title>
+    <title>Dex Entry Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts for a modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -29,16 +30,14 @@
                 rgba(220,38,38,0.18) 24px
               ),
               linear-gradient(120deg, #e53935 0%, #b71c1c 100%);
-            /* Use flexbox to center .pokedex-frame vertically and horizontally */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
         .pokedex-frame {
-            /* Centered with flexbox, no absolute positioning */
-            width: 700px; /* Reduced from 900px */
-            max-width: 90vw; /* Reduced from 97vw */
+            width: 700px;
+            max-width: 90vw;
             height: 1400px;
             max-height: 97vh;
             min-width: 340px;
@@ -59,6 +58,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            position: relative;
         }
         .pokedex-title {
             font-family: 'Roboto', Arial, sans-serif;
@@ -133,23 +133,6 @@
             z-index: 3;
             opacity: 0.7;
         }
-        .pokedex-buttons {
-            position: absolute;
-            right: 48px;
-            bottom: 90px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-            z-index: 6;
-        }
-        .pokedex-button {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            border: 5px solid #555;
-            background: radial-gradient(circle at 18px 18px, #fff 14px, #e0e0e0 26px, #bdbdbd 54px);
-            box-shadow: 0 4px 10px #7778;
-        }
         .pokedex-screen {
             position: absolute;
             left: 53%;
@@ -181,79 +164,73 @@
             flex-direction: column;
             align-items: center;
         }
-        label {
-            display: block;
-            margin-bottom: 0.7em;
-            font-weight: 500;
-            color: #111;
-            font-size: 1.1rem;
-        }
-        form {
-            width: 100%;
-            max-width: 370px;
-            margin: 0 auto;
+        /* Lowered and moved more to right */
+        .pokedex-buttons {
+            position: absolute;
+            right: 33px;   /* was 48px; moves further right */
+            bottom: 60px;  /* was top: 50% + translateY(-50%), now absolute lower */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 32px;
+            z-index: 6;
         }
-        input, select {
+        .pokedex-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 5px solid #555;
+            background: radial-gradient(circle at 18px 18px, #fff 14px, #e0e0e0 26px, #bdbdbd 54px);
+            box-shadow: 0 4px 10px #7778;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.8em;
+            font-weight: 500;
+            color: #222;
+        }
+        input[type="text"] {
             width: 100%;
-            max-width: 360px;
-            padding: 0.6em 0.8em;
-            border: 2px solid #d32f2f;
-            border-radius: 7px;
+            padding: 0.6em 0.7em;
+            border: 1px solid #bbb;
+            border-radius: 6px;
             font-size: 1rem;
             margin-bottom: 1em;
-            background: rgba(255,255,255,0.8);
-            color: #111;
             transition: border-color 0.2s;
-            box-sizing: border-box;
         }
-        input:focus, select:focus {
-            border-color: #b71c1c;
+        input[type="text"]:focus {
+            border-color: #1976d2;
             outline: none;
+        }
+        .checkbox-group {
+            margin-bottom: 1.2em;
+        }
+        .checkbox-group label {
+            font-weight: 400;
+            color: #444;
+            margin-left: 0.5em;
+        }
+        .checkbox-wrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5em;
         }
         button {
             width: 100%;
-            max-width: 360px;
-            background: #d32f2f;
+            background: #1976d2;
             color: #fff;
             border: none;
-            border-radius: 7px;
-            padding: 0.8em 0;
-            font-size: 1.1rem;
+            border-radius: 6px;
+            padding: 0.95em 0;
+            font-size: 1.08rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+            box-shadow: 0 2px 8px rgba(25,118,210,0.08);
             letter-spacing: 0.5px;
             transition: background 0.2s, box-shadow 0.2s;
-            margin-top: 0.5em;
-            align-self: stretch;
         }
         button:hover {
-            background: #b71c1c;
-            box-shadow: 0 4px 16px rgba(211,47,47,0.13);
-        }
-        .desc, .auto-name {
-            display: none !important;
-        }
-        .animation-checkboxes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7em 1.1em;
-            margin-bottom: 1em;
-        }
-        .animation-checkboxes label {
-            font-weight: 400;
-            color: #111;
-            margin-left: 0.3em;
-            margin-bottom: 0;
-            white-space: nowrap;
-            font-size: 1em;
-        }
-        .animation-checkbox-wrap {
-            display: flex;
-            align-items: center;
+            background: #1356a2;
+            box-shadow: 0 4px 16px rgba(25,118,210,0.13);
         }
         @media (max-width: 1200px) {
             body {
@@ -303,28 +280,13 @@
                 height: 3px;
             }
             .pokedex-buttons {
-                right: 18px;
-                bottom: 20px;
+                right: 28px;
+                bottom: 18px;
                 gap: 8px;
             }
             .pokedex-button {
                 width: 22px;
                 height: 22px;
-            }
-            .pokedex-screen {
-                min-height: 90px;
-                width: 94%;
-                left: 53.5%;
-                max-width: 99vw;
-            }
-            .screen-content {
-                padding: 0.5rem 0.1rem 0.8rem 0.1rem;
-            }
-            form {
-                max-width: 98vw;
-            }
-            .pokedex-title {
-                margin-top: 18px;
             }
         }
         @media (max-width: 480px) {
@@ -341,21 +303,18 @@
             .screen-content {
                 padding: 0.25rem 0.1rem 0.6rem 0.1rem;
             }
-            .animation-checkboxes {
-                flex-direction: column;
-                gap: 0.2em;
-            }
         }
     </style>
 </head>
 <body>
     <div class="pokedex-frame">
-        <div class="pokedex-title">COBBLEMON POSER GENERATOR</div>
+        <div class="pokedex-title">DEX ENTRY GENERATOR</div>
         <div class="pokedex-lens"></div>
         <div class="pokedex-led-red"></div>
         <div class="pokedex-led-yellow"></div>
         <div class="pokedex-led-green"></div>
         <div class="pokedex-divider"></div>
+        <!-- Lower and more right: -->
         <div class="pokedex-buttons">
             <div class="pokedex-button"></div>
             <div class="pokedex-button"></div>
@@ -363,106 +322,102 @@
         </div>
         <div class="pokedex-screen">
             <div class="screen-content">
-                <form id="poserForm">
+                <form id="dexForm">
                     <label>
-                        Pokémon Species (ID)<br>
-                        <input type="text" id="species" required placeholder="e.g. bulbasaur">
+                        Pokémon Name/ID
+                        <input type="text" id="pokemon_id" required placeholder="e.g. bulbasaur">
                     </label>
                     <label>
-                        Aspect<br>
-                        <input type="text" id="aspect" placeholder="e.g. shiny (optional)">
+                        Aspect
+                        <input type="text" id="aspect" required placeholder="e.g. shiny">
                     </label>
-                    <label>
-                        Animation Type(s)<br>
-                        <div class="animation-checkboxes" id="animationCheckboxes">
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_idle" name="animation_type" value="idle">
-                                <label for="anim_idle">idle</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_walk" name="animation_type" value="walk">
-                                <label for="anim_walk">walk</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_run" name="animation_type" value="run">
-                                <label for="anim_run">run</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_sleep" name="animation_type" value="sleep">
-                                <label for="anim_sleep">sleep</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_swim" name="animation_type" value="swim">
-                                <label for="anim_swim">swim</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_fly" name="animation_type" value="fly">
-                                <label for="anim_fly">fly</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_attack" name="animation_type" value="attack">
-                                <label for="anim_attack">attack</label>
-                            </div>
-                            <div class="animation-checkbox-wrap">
-                                <input type="checkbox" id="anim_custom" name="animation_type" value="custom">
-                                <label for="anim_custom">custom</label>
-                            </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="gmax">
+                            <label for="gmax">Add Gmax form</label>
                         </div>
-                    </label>
-                    <button type="submit">Generate Poser JSON</button>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="mega">
+                            <label for="mega">Add Mega form</label>
+                        </div>
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="megaxy">
+                            <label for="megaxy">Add Mega X and Mega Y forms</label>
+                        </div>
+                    </div>
+                    <button type="submit">Generate JSON</button>
                 </form>
             </div>
         </div>
     </div>
     <script>
-        function getAutoPoserName() {
-            const species = document.getElementById('species').value.trim();
-            const aspect = document.getElementById('aspect').value.trim();
-            if (!species && !aspect) return "_.json";
-            if (species && !aspect) return `${species}.json`;
-            if (!species && aspect) return `_${aspect}.json`;
-            return `${species}_${aspect}.json`;
+        // Make Mega and Mega X/Y mutually exclusive
+        const mega = document.getElementById('mega');
+        const megaxy = document.getElementById('megaxy');
+
+        mega.addEventListener('change', function() {
+            if (this.checked) {
+                megaxy.checked = false;
+                megaxy.disabled = true;
+            } else {
+                megaxy.disabled = false;
+            }
+        });
+
+        megaxy.addEventListener('change', function() {
+            if (this.checked) {
+                mega.checked = false;
+                mega.disabled = true;
+            } else {
+                mega.disabled = false;
+            }
+        });
+
+        function makeDexEntry(pokemon_id, aspect, forms) {
+            const pokemon_id_aspect = `${pokemon_id}_${aspect}`;
+            return {
+                id: `cobblemon:${pokemon_id_aspect}`,
+                speciesId: `cobblemon:${pokemon_id}`,
+                displayAspects: [aspect],
+                conditionAspects: [aspect],
+                forms: forms,
+                variations: [
+                    {
+                        displayName: `${pokemon_id}_${aspect}`,
+                        aspects: [aspect]
+                    }
+                ]
+            };
         }
 
-        document.getElementById('poserForm').addEventListener('submit', function(event) {
+        document.getElementById('dexForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const species = document.getElementById('species').value.trim();
+            const pokemon_id = document.getElementById('pokemon_id').value.trim();
             const aspect = document.getElementById('aspect').value.trim();
-            const poserName = species && aspect ? `${species}_${aspect}` :
-                              species ? species : aspect ? aspect : '';
-            const filename = getAutoPoserName();
-
-            const checkedBoxes = document.querySelectorAll('input[name="animation_type"]:checked');
-            const selectedAnimations = Array.from(checkedBoxes).map(cb => cb.value);
-
-            if (!species) {
-                alert("Please enter a Pokémon Species (ID).");
-                return;
-            }
-            if (selectedAnimations.length === 0) {
-                alert("Please select at least one animation type.");
-                return;
+            const forms = [
+                { displayForm: "Normal", unlockForms: ["Normal"] }
+            ];
+            if (document.getElementById('gmax').checked) {
+                forms.push({ displayForm: "Gmax", unlockForms: ["Gmax"] });
             }
 
-            const posers = selectedAnimations.map(animationType => {
-                const poser = {
-                    name: poserName,
-                    animation: animationType,
-                    species: `cobblemon:${species}`
-                };
-                if (aspect) {
-                    poser.aspect = aspect;
-                }
-                return poser;
-            });
+            const megaChecked = document.getElementById('mega').checked;
+            const megaXYChecked = document.getElementById('megaxy').checked;
 
-            const output = (posers.length === 1) ? posers[0] : posers;
+            // If Mega X/Y is checked, add both Mega X and Mega Y, do not add Mega
+            if (megaXYChecked) {
+                forms.push({ displayForm: "Mega X", unlockForms: ["Mega X"] });
+                forms.push({ displayForm: "Mega Y", unlockForms: ["Mega Y"] });
+            } else if (megaChecked) {
+                forms.push({ displayForm: "Mega", unlockForms: ["Mega"] });
+            }
 
-            const blob = new Blob([JSON.stringify(output, null, 4)], {type: "application/json"});
+            const dexEntry = makeDexEntry(pokemon_id, aspect, forms);
+            const blob = new Blob([JSON.stringify(dexEntry, null, 4)], {type: "application/json"});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = `${pokemon_id}_${aspect}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
