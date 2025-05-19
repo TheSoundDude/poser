@@ -37,8 +37,8 @@
         }
         .pokedex-frame {
             /* Centered with flexbox, no absolute positioning */
-            width: 700px;
-            max-width: 90vw;
+            width: 700px; /* Reduced from 900px */
+            max-width: 90vw; /* Reduced from 97vw */
             height: 1400px;
             max-height: 97vh;
             min-width: 340px;
@@ -59,7 +59,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            position: relative;
         }
         .pokedex-title {
             font-family: 'Roboto', Arial, sans-serif;
@@ -152,12 +151,14 @@
             box-shadow: 0 4px 10px #7778;
         }
         .pokedex-screen {
-            /* Remove absolute positioning; use flex item with margin for spacing */
-            width: 88%;
-            max-width: 600px;
+            position: absolute;
+            left: 53%;
+            top: 34%;
+            transform: translate(-50%, 0);
+            width: 62%;
+            max-width: 640px;
             height: 60%;
             min-height: 320px;
-            margin: 60px auto 0 auto; /* space from top */
             background: linear-gradient(180deg, #4fc3f7 0%, #0288d1 100%);
             border-radius: 28px;
             box-shadow: 0 4px 40px #0288d188, 0 0 0 8px #0288d1;
@@ -166,7 +167,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* No position, left, top, or transform */
         }
         .screen-content {
             width: 96%;
@@ -269,7 +269,7 @@
                 min-height: 230px;
                 width: 90%;
                 max-width: 97vw;
-                margin-top: 36px;
+                left: 53.5%;
             }
             .screen-content {
                 padding: 1.1rem 0.2rem 1rem 0.2rem;
@@ -314,8 +314,8 @@
             .pokedex-screen {
                 min-height: 90px;
                 width: 94%;
+                left: 53.5%;
                 max-width: 99vw;
-                margin-top: 16px;
             }
             .screen-content {
                 padding: 0.5rem 0.1rem 0.8rem 0.1rem;
@@ -335,8 +335,8 @@
             .pokedex-screen {
                 min-height: 60px;
                 width: 97%;
+                left: 54%;
                 max-width: 99vw;
-                margin-top: 10px;
             }
             .screen-content {
                 padding: 0.25rem 0.1rem 0.6rem 0.1rem;
