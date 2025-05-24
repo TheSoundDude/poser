@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cobblemon Poser Generator</title>
+    <title>Poser Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
     <style>
@@ -29,16 +29,14 @@
                 rgba(220,38,38,0.18) 24px
               ),
               linear-gradient(120deg, #e53935 0%, #b71c1c 100%);
-            /* Use flexbox to center .pokedex-frame vertically and horizontally */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
         .pokedex-frame {
-            /* Centered with flexbox, no absolute positioning */
-            width: 700px; /* Reduced from 900px */
-            max-width: 90vw; /* Reduced from 97vw */
+            width: 700px;
+            max-width: 90vw;
             height: 1400px;
             max-height: 97vh;
             min-width: 340px;
@@ -59,6 +57,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            position: relative; /* Make children absolute relative to this */
         }
         .pokedex-title {
             font-family: 'Roboto', Arial, sans-serif;
@@ -75,10 +74,16 @@
             display: block;
             width: 100%;
         }
+        /* Place all pokedex parts inside the red box with a container */
+        .pokedex-header-parts {
+            width: 100%;
+            position: relative;
+            height: 200px; /* enough to contain lens + leds, adjust as needed */
+        }
         .pokedex-lens {
             position: absolute;
-            top: 50px;
-            left: 52px;
+            top: 20px;
+            left: 30px;
             width: 90px;
             height: 90px;
             background: radial-gradient(circle at 26px 26px, #fff 28px, #2196f3 55px, #1565c0 90px);
@@ -89,8 +94,8 @@
         }
         .pokedex-led-red {
             position: absolute;
-            top: 105px;
-            left: 180px;
+            top: 50px;
+            left: 140px;
             width: 30px;
             height: 30px;
             background: radial-gradient(circle at 10px 10px, #fff 13px, #e57373 24px, #c62828 30px);
@@ -101,8 +106,8 @@
         }
         .pokedex-led-yellow {
             position: absolute;
-            top: 105px;
-            left: 228px;
+            top: 50px;
+            left: 188px;
             width: 30px;
             height: 30px;
             background: radial-gradient(circle at 10px 10px, #fff 13px, #fff59d 24px, #fbc02d 30px);
@@ -113,8 +118,8 @@
         }
         .pokedex-led-green {
             position: absolute;
-            top: 105px;
-            left: 276px;
+            top: 50px;
+            left: 236px;
             width: 30px;
             height: 30px;
             background: radial-gradient(circle at 10px 10px, #fff 13px, #a5d6a7 24px, #388e3c 30px);
@@ -124,14 +129,13 @@
             z-index: 2;
         }
         .pokedex-divider {
-            position: absolute;
-            left: 0;
-            top: 230px;
+            position: relative;
             width: 100%;
             height: 6px;
             background: linear-gradient(90deg, #fff 0 33%, #b71c1c 33% 67%, #fff 67% 100%);
             z-index: 3;
             opacity: 0.7;
+            margin-top: 26px;
         }
         .pokedex-buttons {
             position: absolute;
@@ -283,9 +287,10 @@
                 width: 99vw;
                 height: 205vw;
             }
+            .pokedex-header-parts { height: 100px; }
             .pokedex-lens {
-                top: 18px;
-                left: 18px;
+                top: 10px;
+                left: 10px;
                 width: 50px;
                 height: 50px;
             }
@@ -293,14 +298,14 @@
             .pokedex-led-yellow,
             .pokedex-led-green {
                 width: 16px; height: 16px;
-                top: 44px;
+                top: 30px;
             }
-            .pokedex-led-red { left: 88px; }
-            .pokedex-led-yellow { left: 112px; }
-            .pokedex-led-green { left: 136px; }
+            .pokedex-led-red { left: 60px; }
+            .pokedex-led-yellow { left: 80px; }
+            .pokedex-led-green { left: 100px; }
             .pokedex-divider {
-                top: 90px;
                 height: 3px;
+                margin-top: 10px;
             }
             .pokedex-buttons {
                 right: 18px;
@@ -332,6 +337,7 @@
                 width: 99vw;
                 height: 240vw;
             }
+            .pokedex-header-parts { height: 60px; }
             .pokedex-screen {
                 min-height: 60px;
                 width: 97%;
@@ -350,11 +356,13 @@
 </head>
 <body>
     <div class="pokedex-frame">
-        <div class="pokedex-title">COBBLEMON POSER GENERATOR</div>
-        <div class="pokedex-lens"></div>
-        <div class="pokedex-led-red"></div>
-        <div class="pokedex-led-yellow"></div>
-        <div class="pokedex-led-green"></div>
+        <div class="pokedex-title">POSER GENERATOR</div>
+        <div class="pokedex-header-parts">
+            <div class="pokedex-lens"></div>
+            <div class="pokedex-led-red"></div>
+            <div class="pokedex-led-yellow"></div>
+            <div class="pokedex-led-green"></div>
+        </div>
         <div class="pokedex-divider"></div>
         <div class="pokedex-buttons">
             <div class="pokedex-button"></div>
